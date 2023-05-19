@@ -13,8 +13,8 @@ class Question(Base):
     __tablename__ = "questions"
 
     id = Column(Integer, primary_key=True)
-    question_text = Column(String(200), unique=True)
-    answer_text = Column(String(200))
+    question_text = Column(String, unique=True)
+    answer_text = Column(String)
     creation_date = Column(DateTime, default=datetime.utcnow)
 
     def __init__(self, id: int, question_text: str, answer_text: str, creation_date: datetime):
