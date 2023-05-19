@@ -9,11 +9,6 @@ from datetime import datetime
 from .database import Base
 
 
-# Model of request to the table "questions" in database
-class QuizIn(BaseModel):
-    questions_num: int
-
-
 class Question(Base):
     """
     Defines the questions model
