@@ -1,0 +1,82 @@
+from typing import List
+
+from sqlalchemy.orm import Session  # type: ignore
+
+from .models import Question
+
+import requests
+
+from fastapi import HTTPException
+# get_random_questions в question service, а crud это запрос - обращение к bd
+# Здесь реализуют create, delete, update, read
+
+# Нужно создать класс-прослойку, обёртку для json и приводить нужно к QuestionDto (data-transfer-object)
+# и из get_random_questions я получаю прослойку QuestionDto, а её передаю в crud или в нужную функцию
+# inputdto - то что я получаю, outputdto - то что я возвращаею, если информация на вход и выход - разная
+# буфер dto обязателен - получаю из бд что-то - оборачиваю в дто
+
+# 1) вынесение логики фичи в методы QuestionService
+# 2) JSON полученный из их апи - оборачиваем в QuestionDto
+# 3) Уточнить как создаются ID в БД. Идеально было бы, чтобы БД сама делала ID 1, 2, 3, 4.... Но если гуиды будешь делать, то тоже норм
+# 4) Конструктор модели вопроса БД (Question) принимает dto модель
+# 5) Get запрос, а не POST.
+# 6) Session будет создаваться в сервисе.
+# Результат - json предыдущего вопроса или пусто если его нет. Но думай над этим, кода приведешь код в порядок, а пока возвращай json вопроса который создал.
+def get_random_questions(num_questions: int) -> List[Question] | Question:
+    url = f"https://jservice.io/api/random?count={num_questions}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise HTTPException(status_code=response.status_code, detail="Failed to fetch questions from API")
+
+class Question(Base):
+    """
+    Defines the questions model
+    """
+
+    __tablename__ = "questions"
+    # генерить uuid4 primary key
+    # или генерить уникальный id через число (просто инт или через дату) 1, 2, 3, 4, 5...
+    id = Column(Integer, primary_key=True, index=True)
+    question_text = Column(String(200), unique=True)  # нужен ли unique
+    answer_text = Column(String(200))
+    creation_date = Column(DateTime, default=datetime.utcnow)
+
+@questionrouter.post("/questions/") # это будет get
+def create_questions(questions_num: int):
+    session = SessionLocal() # сейчас в сервис, а потом в crud
+    # В контроллере нужно просто сделать вызов сервиса
+    # Получение случайных вопросов
+    random_questions = get_random_questions(questions_num)
+
+    # Проверка на уникальность вопросов и сохранение в базу данных
+    saved_questions = []
+    # метод get_unique_questions(): в цикле while обращаюсь к api, получаю вопрос, смотрю унивкальность и запрашиваю
+    # снова, пока не получу n унивкальных вопросов. приватный метод класса QuestionService
+    for question_data in random_questions:
+        question_text = question_data["question"]
+        answer_text = question_data["answer"] #questiondata.answertext
+
+        # Проверка наличия вопроса в базе данных
+        existing_question = session.query(Question).filter(Question.question_text == question_text).first()
+        # session.query(Question).exists()
+        if existing_question:
+            continue  # Если вопрос уже сохранен, пропустить его
+        # dto будет передаваться в crud на запись
+        # Создание нового объекта вопроса и сохранение в базе данных
+        # try:
+        new_question = Question(question_text=question_text, answer_text=answer_text)
+        session.add(new_question)
+        session.commit()
+
+
+        saved_questions.append(new_question)
+        # except: указать ошибку, (при сохранении вопроса с такими то параметрами возникла ошибка)
+        #     raise
+    session.close()
+
+    # Возвращение сохраненных вопросов
+    return saved_questions[-1] if saved_questions else {}
+    # логика с предыдущим вопросом
+
