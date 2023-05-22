@@ -14,7 +14,7 @@ class Question(Base):
     # генерить uuid4 primary key
     # или генерить уникальный id через число (просто инт или через дату) 1, 2, 3, 4, 5...
     # unique=True – if True, create a unique index
-    question_id = Column(Integer, primary_key=True, index=True, unique=True)
+    id = Column(Integer, primary_key=True, index=True, unique=True)
     question_text = Column(String)  # нужен ли unique ?
     answer_text = Column(String)
     creation_date = Column(DateTime, default=datetime.utcnow)

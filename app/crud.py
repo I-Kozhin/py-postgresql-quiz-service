@@ -55,8 +55,8 @@ def create_question(question: QuestionDtoInput) -> QuestionDtoOutput | bool:
         if existing_question:
             return True
 
-        new_question = Question(question_text=question.question, answer_text=question.answer,
-                                creation_date=question.created_at)
+        new_question = QuestionDtoOutput(question_text=question.question, answer_text=question.answer,
+                                         creation_date=question.created_at)
         session.add(new_question)
         session.commit()
         session.refresh(new_question)
