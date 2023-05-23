@@ -23,7 +23,6 @@ This Python-based project provides a web service for a quiz application, leverag
    
 3. Build the Docker image and start the containers:
     ```
-    docker-compose up --build
     docker-compose -p test-db -f docker-compose.yml up postgres-db
    
 4. The service should now be running on http://localhost:8000. You can access the API using your preferred API testing tool (e.g., curl, Postman).

@@ -1,3 +1,5 @@
+import sys
+
 from sqlalchemy.orm import Session  # type: ignore
 from typing import List, Type
 import logging
@@ -12,6 +14,13 @@ from database.question import Question
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 logger = logging.getLogger(__name__)
+
+
+class CommitError(Exception):
+    def __init__(self, message):
+        super().__init__(message)
+        # Terminate the program
+        sys.exit(1)
 
 
 class QuestionRepository:
@@ -35,3 +44,4 @@ class QuestionRepository:
         except SQLAlchemyError as error:
             # Log the exception
             logger.error(f"An error occurred: {error}")
+            raise CommitError("Commit failed. Program terminated.")

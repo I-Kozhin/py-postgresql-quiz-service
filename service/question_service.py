@@ -3,7 +3,7 @@ from typing import List, Optional
 import requests
 from sqlalchemy.orm import Session  # type: ignore
 
-from crud.question_repository import QuestionRepository
+from repositories.question_repository import QuestionRepository
 from dto.question_dto import QuestionDto
 
 
