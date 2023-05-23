@@ -1,21 +1,23 @@
 # Здесь реализуют create, delete, update, read
+from sqlalchemy.orm import Session   # type: ignore
 from typing import List
-
+import logging
 from sqlalchemy import desc
-from sqlalchemy.orm import Session  # type: ignore
-
-from . import question
-from app.database import SessionLocal, engine
-from app.question import Question
+from sqlalchemy.exc import SQLAlchemyError
+from app.database import SessionLocal
 from app.question_dto import QuestionDto
+from app.question import Question
+
+
+# Create a logger
+logger = logging.getLogger(__name__)
 
 
 class QuestionRepository:
     __session: SessionLocal
 
     def __init__(self):
-        # self.__session = self.__get_session()
-        self.__session = SessionLocal()
+        self.__session = self.__get_session()
 
     def get_last_question_nullable(self) -> Question:
         return self.__session.query(Question).order_by(desc(Question.id)).first()
@@ -25,19 +27,15 @@ class QuestionRepository:
 
     def create_questions(self, collection_dto: List[QuestionDto]) -> None:
         for question in collection_dto:
-            self.__session.add(Question(question))
+            self.__session.add(Question.from_dto(question))
 
         try:
             self.__session.commit()
-        except:
-            pass  # логирую
-
-    # создать один класс dto
+        except SQLAlchemyError as error:
+            # Log the exception
+            logger.error(f"An error occurred: {error}")
 
     @staticmethod
     def __get_session():
         session = SessionLocal()
-        try:
-            yield session
-        finally:
-            session.close()
+        return session

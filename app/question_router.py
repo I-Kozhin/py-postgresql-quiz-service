@@ -16,4 +16,4 @@ def create_questions(questions_num: int) -> QuestionDto:
     if last_question is None:
         return {}  # типизация!
 
-    return QuestionDto(last_question)
+    return QuestionDto.from_question(last_question)

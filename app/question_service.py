@@ -29,7 +29,6 @@ class QuestionService:
             response = requests.get(url)
             if response.status_code == 200:
                 question_data = response.json()
-                print(question_data)
                 question = QuestionDto.parse_obj(question_data[0])
                 #  есть ли вопрос в бд
                 if self.question_repository.is_question_exist(question.question):
