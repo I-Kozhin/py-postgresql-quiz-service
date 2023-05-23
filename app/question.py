@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Column, Integer, String, DateTime
 
-from .database import Base
+from app.database import Base
 
 
 class Question(Base):
@@ -11,9 +11,7 @@ class Question(Base):
     """
 
     __tablename__ = "questions"
-    # генерить uuid4 primary key
-    # или генерить уникальный id через число (просто инт или через дату) 1, 2, 3, 4, 5...
-    # unique=True – if True, create a unique index
+    # генерить uuid4 primary key ?
     id = Column(Integer, primary_key=True, index=True, unique=True)
     question_text = Column(String, index=True)
     answer_text = Column(String)

@@ -5,9 +5,9 @@ from sqlalchemy import desc
 from sqlalchemy.orm import Session  # type: ignore
 
 from . import question
-from .database import SessionLocal, engine
-from .question import Question
-from .question_dto import QuestionDto
+from app.database import SessionLocal, engine
+from app.question import Question
+from app.question_dto import QuestionDto
 
 
 class QuestionRepository:

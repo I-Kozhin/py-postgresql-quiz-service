@@ -1,10 +1,11 @@
 from fastapi import APIRouter
 from sqlalchemy.orm import Session  # type: ignore
 
-from .question_service import QuestionService
-from .question_dto import QuestionDto
+from app.question_service import QuestionService
+from app.question_dto import QuestionDto
 
 questionrouter = APIRouter()
+
 
 @questionrouter.post("/create-questions/")
 def create_questions(questions_num: int) -> QuestionDto:
@@ -13,6 +14,6 @@ def create_questions(questions_num: int) -> QuestionDto:
     question_service.create_unique_questions(questions_num)
 
     if last_question is None:
-        return {}
+        return {}  # типизация!
 
     return QuestionDto(last_question)

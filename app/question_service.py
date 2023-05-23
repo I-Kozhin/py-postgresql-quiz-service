@@ -3,8 +3,8 @@ import requests
 from fastapi import HTTPException
 from sqlalchemy.orm import Session  # type: ignore
 
-from .question_dto import QuestionDto  # , Category
-from .question_repository import QuestionRepository
+from app.question_dto import QuestionDto  # , Category
+from app.question_repository import QuestionRepository
 
 
 class QuestionService:
@@ -28,9 +28,10 @@ class QuestionService:
             if response.status_code == 200:
                 # вынести в контруктор
                 question_data = response.json()
+                print(question_data)
                 question = QuestionDto(
-                    answer=question_data[0]['answer'],
                     question=question_data[0]['question'],
+                    answer=question_data[0]['answer'],
                     creation_date=question_data[0]['created_at']
                 )
                 #  есть ли вопрос в бд
