@@ -1,6 +1,6 @@
 # Quiz Service with PostgreSQL
 
-This project implements a web service using Python and PostgreSQL for a quiz application. The service allows users to request a specified number of random quiz questions from a public API and store them in a PostgreSQL database.
+This Python-based project provides a web service for a quiz application, leveraging PostgreSQL for data storage. The service fetches random quiz questions from a public API and stores them in a PostgreSQL database.
 
 ## Features
 
@@ -8,7 +8,7 @@ This project implements a web service using Python and PostgreSQL for a quiz app
 - Fetches the requested number of random quiz questions from a public API.
 - Stores the questions and their details in a PostgreSQL database.
 - Ensures uniqueness of questions in the database.
-- Provides the previously saved question as a response for subsequent requests.
+- Returns the previously saved question as a response for subsequent requests.
 - Supports data persistence using Docker volumes.
 
 ## Installation
@@ -42,7 +42,7 @@ The response will contain the previously saved quiz questions, if available.
 - FastAPI
 - SQLAlchemy
 - psycopg2
-- Docker (if using Docker for containerization)
+- Docker 
 
 ## Contributing
 Contributions to this project are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
