@@ -4,9 +4,9 @@ from typing import List
 import logging
 from sqlalchemy import desc
 from sqlalchemy.exc import SQLAlchemyError
-from app.database import SessionLocal
-from app.question_dto import QuestionDto
-from app.question import Question
+from database.database import SessionLocal
+from dto.question_dto import QuestionDto
+from database.question import Question
 
 
 # Create a logger

@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 from sqlalchemy.orm import Session  # type: ignore
 
-from app.question_service import QuestionService
-from app.question_dto import QuestionDto
+from service.question_service import QuestionService
+from dto.question_dto import QuestionDto
 
 questionrouter = APIRouter()
 

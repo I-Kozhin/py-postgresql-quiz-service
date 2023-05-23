@@ -1,11 +1,6 @@
 from datetime import datetime
-
 from pydantic import BaseModel
 
-# from app.question import Question
-
-
-# Здесь можно добавить проверку полей через pydantic.Field
 
 class QuestionDto(BaseModel):
     """
@@ -17,7 +12,7 @@ class QuestionDto(BaseModel):
     creation_date: datetime | None = None
 
     @classmethod
-    def from_question(cls, question):
+    def from_question(cls, question: 'Question'):
         return cls(
             question_id=question.id,
             answer=question.answer_text,

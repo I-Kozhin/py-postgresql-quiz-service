@@ -1,9 +1,7 @@
-from datetime import datetime
-
 from sqlalchemy import Column, Integer, String, DateTime
-
-from app.database import Base
-from app.question_dto import QuestionDto
+from database.database import Base
+from dto.question_dto import QuestionDto
+from datetime import datetime
 
 
 class Question(Base):

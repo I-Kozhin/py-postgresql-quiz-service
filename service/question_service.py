@@ -5,8 +5,10 @@ import requests
 from fastapi import HTTPException
 from sqlalchemy.orm import Session  # type: ignore
 
-from app.question_dto import QuestionDto  # , Category
-from app.question_repository import QuestionRepository
+from crud.question_repository import QuestionRepository
+
+from database.question import Question
+from dto.question_dto import QuestionDto
 
 
 class QuestionService:

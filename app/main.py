@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from app.database import Base, engine
-from app.question_router import questionrouter
+from database.database import Base, engine
+from router.question_router import questionrouter
 
 app = FastAPI()
 app.include_router(questionrouter)
