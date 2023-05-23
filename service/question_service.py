@@ -1,5 +1,4 @@
-# requests используется для отправки запросов к внешнему API
-from typing import List
+from typing import List, Optional
 
 import requests
 from sqlalchemy.orm import Session  # type: ignore
@@ -41,5 +40,5 @@ class QuestionService:
         unique_questions = self.question_api_service.get_unique_questions_from_api(question_count)
         self.question_repository.create_questions(unique_questions)
 
-    def get_last_question(self):
+    def get_last_question(self) -> Optional['Question']:
         return self.question_repository.get_last_question_nullable()

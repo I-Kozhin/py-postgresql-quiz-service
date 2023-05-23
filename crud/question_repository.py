@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session  # type: ignore
-from typing import List
+from typing import List, Type
 import logging
 from sqlalchemy import desc
 from sqlalchemy.exc import SQLAlchemyError
@@ -20,7 +20,7 @@ class QuestionRepository:
     def __init__(self):
         self.__session = DatabaseSessionManager.get_session()
 
-    def get_last_question_nullable(self) -> Question:
+    def get_last_question_nullable(self) -> Type[Question] | None:
         return self.__session.query(Question).order_by(desc(Question.id)).first()
 
     def is_question_exist(self, question_text: str) -> bool:
@@ -35,8 +35,3 @@ class QuestionRepository:
         except SQLAlchemyError as error:
             # Log the exception
             logger.error(f"An error occurred: {error}")
-
-    @staticmethod
-    def __get_session():
-        session = SessionLocal()
-        return session
