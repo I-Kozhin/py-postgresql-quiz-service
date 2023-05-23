@@ -41,4 +41,4 @@ class QuestionService:
             else:
                 raise HTTPException(status_code=response.status_code, detail="Failed to fetch questions from API")
 
-            return unique_questions_from_api
+        return unique_questions_from_api
