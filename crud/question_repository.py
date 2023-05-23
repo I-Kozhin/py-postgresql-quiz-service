@@ -1,13 +1,12 @@
-# Здесь реализуют create, delete, update, read
-from sqlalchemy.orm import Session   # type: ignore
+from sqlalchemy.orm import Session  # type: ignore
 from typing import List
 import logging
 from sqlalchemy import desc
 from sqlalchemy.exc import SQLAlchemyError
 from database.database import SessionLocal
+from database.database_session_manager import DatabaseSessionManager
 from dto.question_dto import QuestionDto
 from database.question import Question
-
 
 # Create a logger
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -19,7 +18,7 @@ class QuestionRepository:
     __session: SessionLocal
 
     def __init__(self):
-        self.__session = self.__get_session()
+        self.__session = DatabaseSessionManager.get_session()
 
     def get_last_question_nullable(self) -> Question:
         return self.__session.query(Question).order_by(desc(Question.id)).first()
