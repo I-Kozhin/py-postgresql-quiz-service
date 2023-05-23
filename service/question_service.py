@@ -2,13 +2,14 @@
 from typing import List
 
 import requests
-from fastapi import HTTPException
 from sqlalchemy.orm import Session  # type: ignore
 
 from crud.question_repository import QuestionRepository
-
-from database.question import Question
 from dto.question_dto import QuestionDto
+
+
+class QuestionServiceError(Exception):
+    pass
 
 
 class QuestionService:
@@ -37,8 +38,7 @@ class QuestionService:
                     continue
                 else:
                     unique_questions_from_api.append(question)
-
             else:
-                raise HTTPException(status_code=response.status_code, detail="Failed to fetch questions from API")
+                raise QuestionServiceError(f"Failed to fetch questions from API: {response.status_code}")
 
         return unique_questions_from_api
