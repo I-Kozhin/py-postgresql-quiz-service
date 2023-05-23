@@ -1,5 +1,5 @@
 # Use an official Python runtime as the base image
-FROM python:3.11
+FROM python:latest
 
 # Set the working directory in the container
 WORKDIR /app
@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 8000
 
 # Set the command to run the application
-CMD ["python", "main.py"]
+#CMD ["python", "uvicorn main:app --reload"]
