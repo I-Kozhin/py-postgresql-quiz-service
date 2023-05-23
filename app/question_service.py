@@ -1,4 +1,6 @@
 # requests используется для отправки запросов к внешнему API
+from typing import List
+
 import requests
 from fastapi import HTTPException
 from sqlalchemy.orm import Session  # type: ignore
@@ -20,20 +22,15 @@ class QuestionService:
     def get_last_question(self):
         return self.question_repository.get_last_question_nullable()
 
-    def __get_unique_questions_from_api(self, question_count: int):
+    def __get_unique_questions_from_api(self, question_count: int) -> List[QuestionDto]:
         unique_questions_from_api = []
         while len(unique_questions_from_api) < question_count:
             url = f"https://jservice.io/api/random?count={1}"
             response = requests.get(url)
             if response.status_code == 200:
-                # вынести в контруктор
                 question_data = response.json()
                 print(question_data)
-                question = QuestionDto(
-                    question=question_data[0]['question'],
-                    answer=question_data[0]['answer'],
-                    creation_date=question_data[0]['created_at']
-                )
+                question = QuestionDto.parse_obj(question_data[0])
                 #  есть ли вопрос в бд
                 if self.question_repository.is_question_exist(question.question):
                     continue
@@ -42,3 +39,5 @@ class QuestionService:
 
             else:
                 raise HTTPException(status_code=response.status_code, detail="Failed to fetch questions from API")
+
+            return unique_questions_from_api

@@ -16,6 +16,15 @@ class QuestionDto(BaseModel):
     answer: str | None = None
     creation_date: datetime | None = None
 
-    def __init__(self, question: Question):
-        super().__init__(question_id=question.id, answer=question.answer_text,
-                         question=question.question_text, creation_date=question.creation_date)
+    @classmethod
+    def from_question(cls, question):
+        return cls(
+            question_id=question.id,
+            answer=question.answer_text,
+            question=question.question_text,
+            creation_date=question.creation_date
+        )
+
+    # def __init__(self, question: Question):
+    #     super().__init__(question_id=question.id, answer=question.answer_text,
+    #                      question=question.question_text, creation_date=question.creation_date)
