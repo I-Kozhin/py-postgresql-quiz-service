@@ -1,15 +1,42 @@
 version: "3.8"
 
 services:
-    postgres-db:
-        image: postgres:13.3
-        container_name: db-postgres
-        environment:
-            POSTGRES_DB: "postgresdb"
-            POSTGRES_USER: "user"
-            POSTGRES_PASSWORD: "123456789"
-        volumes:
-            - ./my-postgres-db:/var/lib/postgresql/data
-        ports: 
-            - "5432:5432"    
+  postgres-db:
+    image: postgres:13.3
+    container_name: db-postgres
+    environment:
+      POSTGRES_DB: "postgresdb"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "123456789"
+    volumes:
+      - ./my-postgres-db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - network-quiz
+
+  main-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: quiz-service
+    restart: always
+    depends_on:
+      - postgres-db
+    ports:
+      - "8000:8000"
+    networks:
+      - network-quiz
+    command: ["./wait-for-postgres.sh", "db-postgres", "uvicorn", "app.main:app", "--reload"]
+    environment:
+      DB_HOST: "db-postgres"
+      DB_PORT: "5432"
+      DB_USER: "user"
+      DB_PASSWORD: "123456789"
+      DB_NAME: "postgresdb"
+      DB_TYPE: "postgresql"
+
+networks:
+  network-quiz:
+    name: network-quiz-01
 
