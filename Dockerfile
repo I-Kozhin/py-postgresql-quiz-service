@@ -1,5 +1,5 @@
 # Use an official Python runtime as the base image
-FROM python:latest
+FROM python:3.11-slim-bullseye
 
 # нужен чтобы логи нормально из контейнера вылезали
 ENV PYTHONUNBUFFERED 1
