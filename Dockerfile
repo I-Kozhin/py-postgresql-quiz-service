@@ -7,6 +7,19 @@ ENV PYTHONUNBUFFERED 1
 # тоже можно поставить, все равно кеш питон кода в контейнере лишь место лишнее занимать будет
 ENV PYTHONDONTWRITEBYTECODE 1
 
+RUN apt-get update && apt-get install
+
+RUN apt-get install -y \
+  dos2unix \
+  libpq-dev \
+  libmariadb-dev-compat \
+  libmariadb-dev \
+  gcc \
+  && apt-get clean
+
+RUN python -m pip install --upgrade pip
+
+
 # Set the working directory in the container
 WORKDIR /app
 
