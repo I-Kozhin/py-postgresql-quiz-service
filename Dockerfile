@@ -25,5 +25,5 @@ EXPOSE 8000
 
 # Set the command to run the application
 #CMD ["python", "uvicorn main:app --reload"]
-COPY wait-for-postgres.sh /wait-for-postgres.sh
-RUN chmod +x /wait-for-postgres.sh
+#COPY wait-for-postgres.sh /wait-for-postgres.sh
+#RUN chmod +x /wait-for-postgres.sh

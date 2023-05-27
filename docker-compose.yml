@@ -21,7 +21,8 @@ services:
     depends_on:
       - postgres-db
     network_mode: "host"
-    command: ["./wait-for-postgres.sh", "localhost", "uvicorn", "app.main:app", "--reload"]
+    # "./wait-for-postgres.sh", "localhost",
+    command: [ "uvicorn", "app.main:app", "--reload"]
     environment:
       DB_HOST: "localhost"
       DB_PORT: "5432"
