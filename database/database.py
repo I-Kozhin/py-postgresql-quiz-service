@@ -22,13 +22,6 @@ Base = declarative_base()
 async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
-# def create_tables() -> None:
-#     Base.metadata.create_all(bind=)
-#
-#
-# create_tables()
-# Base.metadata.create_all(bind=engine) Эту строку мы меняем на функцию init models
-
 async def init_models():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)

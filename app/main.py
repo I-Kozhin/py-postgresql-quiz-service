@@ -14,22 +14,13 @@ app.include_router(questionrouter)
 cli = typer.Typer()
 
 
-# @cli.command()
-# def db_init_models():
-#     asyncio.run(init_models())
-#     print("Done")
-
-
 @app.on_event("startup")
 async def startup_event():
     await init_models()
 
+
 if __name__ == "__main__":
-    # cli()
+
     import uvicorn
 
     uvicorn.run(app, host=HOST, port=PORT)
-# if __name__ == "__main__":
-#     import uvicorn
-#
-#     uvicorn.run(app, host=HOST, port=PORT)

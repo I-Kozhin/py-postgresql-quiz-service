@@ -19,8 +19,6 @@ async def create_questions(questions_num: int, question_service: QuestionService
         await question_service.create_unique_questions(questions_num, session)
     except QuestionServiceError as error:
         raise HTTPException(status_code=400, detail=str(error))
-    except Exception as error:
-        raise HTTPException(status_code=500, detail="Unexpected error occurred.")
 
     if last_question is None:
         return JSONResponse(content={})
