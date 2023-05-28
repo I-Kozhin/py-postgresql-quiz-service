@@ -1,9 +1,8 @@
-from sqlalchemy.orm import Session
-from database.database import SessionLocal
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from database.database import async_session
 
 
-class DatabaseSessionManager:
-    @staticmethod
-    def get_session() -> Session:
-        session = SessionLocal()
-        return session
+async def get_session() -> AsyncSession:
+    async with async_session() as session:
+        yield session
