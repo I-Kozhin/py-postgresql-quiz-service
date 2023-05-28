@@ -10,3 +10,14 @@ venv/
 .venv/
 venv_*/
 .git
+my-postgres-db/
+*.pyc
+dto/__pycache__/__init__.cpython-311.pyc
+*__pycache__*
+__pycache__/
+database/__pycache__/__init__.cpython-311.pyc
+dto/__pycache__/__init__.cpython-311.pyc
+README.md
+LICENSE
+Test.puml
+json_structure_from_api.png
