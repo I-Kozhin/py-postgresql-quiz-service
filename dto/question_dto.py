@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -7,10 +8,10 @@ class QuestionDto(BaseModel):
     """
     This is data-transfer-object in case of input question from api
     """
-    question_id: int | None = None
-    question: str | None = None
-    answer: str | None = None
-    creation_date: datetime | None = None
+    question_id: Optional[int]
+    question: Optional[str]
+    answer: Optional[str]
+    creation_date: Optional[datetime]
 
     @classmethod
     def from_question(cls, question: 'Question') -> 'QuestionDto':
