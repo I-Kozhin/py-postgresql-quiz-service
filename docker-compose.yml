@@ -22,6 +22,8 @@ services:
         depends_on:
             - postgres-db
 #        network_mode: "host"
+        ports:
+            - "8000:8000"
         command: [ "uvicorn", "app.main:app", "--reload" ]
         environment:
             DB_HOST: "db-postgres"
