@@ -1,0 +1,12 @@
+README.md
+LICENSE
+Test.puml
+json_structure_from_api.png
+.env*
+__pycache__/
+*.bkp
+*.dtmp
+venv/
+.venv/
+venv_*/
+.git
