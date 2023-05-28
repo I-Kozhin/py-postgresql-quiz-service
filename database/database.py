@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker  # type: ignore
 from sqlalchemy.ext.asyncio import AsyncSession
 import os
 
-host = os.getenv('DB_HOST', 'db-postgres')
+host = os.getenv('DB_HOST', 'localhost')
 port = os.getenv('DB_PORT', '5432')
 user = os.getenv('DB_USER', 'user')
 password = os.getenv('DB_PASSWORD', '123456789')
