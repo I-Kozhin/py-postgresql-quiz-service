@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from database.database import init_models
 from router.question_router import questionrouter
 
-HOST = 'localhost'
+HOST = '0.0.0.0'
 PORT = 8000
 
 app = FastAPI()
