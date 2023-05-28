@@ -21,7 +21,7 @@ services:
         restart: always
         depends_on:
             - postgres-db
-        network_mode: "host"
+#        network_mode: "host"
         command: [ "uvicorn", "app.main:app", "--reload" ]
         environment:
             DB_HOST: "db-postgres"
