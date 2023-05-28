@@ -11,8 +11,8 @@ services:
             POSTGRES_PASSWORD: "123456789"
         volumes:
             - ./my-postgres-db:/var/lib/postgresql/data
-        ports: 
-            - "5432:5432"    
+#        ports:
+#            - "5432:5432"
 
     main-app:
         build:
