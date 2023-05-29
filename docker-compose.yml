@@ -25,7 +25,7 @@ services:
         network_mode: "host"
 #        ports:
 #            - "8000:8000"
-        command: [ "uvicorn", "app.main:app", "--reload" ]
+        command: [ "uvicorn", "app.main:app", "--host 0.0.0.0", "--reload" ]
         environment:
             DB_HOST: "localhost"
             DB_PORT: "5432"
