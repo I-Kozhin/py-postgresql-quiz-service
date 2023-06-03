@@ -25,16 +25,3 @@ async def create_questions(questions_num: int, question_service: QuestionService
 
     return JSONResponse(content=QuestionDto.from_question(last_question).to_dict())
 
-# @questionrouter.post("/create-questions/", response_model=Union[QuestionDto, dict])
-# def create_questions(questions_num: int,
-#   question_service: QuestionService = Depends(QuestionService)) -> JSONResponse:
-#     last_question = question_service.get_last_question()
-#     try:
-#         question_service.create_unique_questions(questions_num)
-#     except QuestionServiceError as error:
-#         raise HTTPException(status_code=400, detail=str(error))
-#
-#      if last_question is None:
-#           return JSONResponse(content={})
-#
-#       return JSONResponse(content=QuestionDto.from_question(last_question).to_dict())
