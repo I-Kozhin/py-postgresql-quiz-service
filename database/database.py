@@ -13,10 +13,7 @@ dbtype = os.getenv('DB_TYPE', 'postgresql')
 
 SQLALCHEMY_DATABASE_URL = f"{dbtype}+asyncpg://{user}:{password}@{host}:{port}/{db}"
 
-'''1)   Указание echo=True при инициализации движка позволит нам увидеть сгенерированные SQL-запросы в консоли
-    2)  Мы должны отключить поведение "expire on commit (завершить при фиксации)" для сессий с expire_on_commit=False. 
-Это связано с тем, что в настройках async мы не хотим, чтобы SQLAlchemy выдавал новые SQL-запросы к базе данных при 
-обращении к уже закоммиченным объектам'''
+
 engine = create_async_engine(SQLALCHEMY_DATABASE_URL, echo=True)
 Base = declarative_base()
 async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)

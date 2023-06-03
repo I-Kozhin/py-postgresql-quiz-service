@@ -4,12 +4,32 @@ services:
     postgres-db:
         image: postgres:13.3
         container_name: db-postgres
+#        network_mode: "host"
         environment:
             POSTGRES_DB: "postgresdb"
             POSTGRES_USER: "user"
             POSTGRES_PASSWORD: "123456789"
         volumes:
             - ./my-postgres-db:/var/lib/postgresql/data
-        ports: 
-            - "5432:5432"    
+        ports:
+            - "5432:5432"
 
+    main-app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: quiz-service
+        restart: always
+        depends_on:
+            - postgres-db
+#        network_mode: "host"
+        ports:
+            - "8000:8000"
+        command: [ "uvicorn", "app.main:app", "--host", "0.0.0.0", "--reload" ]
+        environment:
+            DB_HOST: "db-postgres"
+            DB_PORT: "5432"
+            DB_USER: "user"
+            DB_PASSWORD: "123456789"
+            DB_NAME: "postgresdb"
+            DB_TYPE: "postgresql"
