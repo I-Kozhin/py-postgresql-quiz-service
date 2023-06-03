@@ -16,15 +16,12 @@ This Python-based project provides a web service for a quiz application, leverag
 1. Clone the repository:
    ```
    git clone <repository_url>
-   
 2. Navigate to the project directory:
     ```
     cd quiz-service-postgresql
-   
 3. Build the Docker image and start the containers:
     ```
-    docker-compose -p test-db -f docker-compose.yml up postgres-db
-   
+    docker-compose up -d
 4. The service should now be running on http://localhost:8000. You can access the API using your preferred API testing tool (e.g., curl, Postman).
 
 ## API Usage
@@ -41,7 +38,9 @@ The response will contain the previously saved quiz questions, if available.
 - Python 3
 - FastAPI
 - SQLAlchemy
-- psycopg2
+- asyncpg
+- aiohttp
+- uvicorn
 - Docker 
 
 ## Contributing
