@@ -2,6 +2,7 @@ from sqlalchemy.ext.asyncio import create_async_engine  # type: ignore
 from sqlalchemy.ext.declarative import declarative_base  # type: ignore
 from sqlalchemy.orm import sessionmaker  # type: ignore
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import inspect
 import os
 
 host = os.getenv('DB_HOST', 'localhost')
@@ -19,7 +20,19 @@ Base = declarative_base()
 async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
-async def init_models():
+def get_table_names(sync_conn):
+    inspector = inspect(sync_conn)
+    return inspector.get_table_names()
+
+
+async def get_table_names_async():
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
+        return await conn.run_sync(get_table_names)
+
+
+async def init_models():
+    table_names = await get_table_names_async()
+    if db not in table_names:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+
