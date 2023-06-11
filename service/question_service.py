@@ -5,10 +5,7 @@ from sqlalchemy.orm import Session  # type: ignore
 from sqlalchemy.ext.asyncio import AsyncSession
 from dto.question_dto import QuestionDto
 from repositories.question_repository import QuestionRepository
-
-
-class QuestionServiceError(Exception):
-    pass
+from app.errors import QuestionServiceError
 
 
 class QuestionApiService:
