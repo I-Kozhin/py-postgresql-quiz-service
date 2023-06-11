@@ -3,9 +3,8 @@ from fastapi import FastAPI
 from database.database import init_models
 from router.question_router import questionrouter
 from app.errors import logger
+from app.settings import HOST, PORT
 
-HOST = '0.0.0.0'
-PORT = 8000
 
 app = FastAPI()
 app.include_router(questionrouter)

@@ -7,13 +7,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 import os
 from app.errors import logger, SomeReconnectableError
 from time import sleep
+from app.settings import DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_TYPE
 
-host = os.getenv('DB_HOST', 'localhost')
-port = os.getenv('DB_PORT', '5432')
-user = os.getenv('DB_USER', 'user')
-password = os.getenv('DB_PASSWORD', '123456789')
-db = os.getenv('DB_NAME', 'postgresdb')
-dbtype = os.getenv('DB_TYPE', 'postgresql')
+host = os.getenv('DB_HOST', DB_HOST)
+port = os.getenv('DB_PORT', DB_PORT)
+user = os.getenv('DB_USER', DB_USER)
+password = os.getenv('DB_PASSWORD', DB_PASSWORD)
+db = os.getenv('DB_NAME', DB_NAME)
+dbtype = os.getenv('DB_TYPE', DB_TYPE)
 
 intervals = [1, 3, 7]
 
