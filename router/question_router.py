@@ -11,9 +11,9 @@ from dto.question_dto import QuestionDto
 questionrouter = APIRouter()
 
 
-@questionrouter.post("/create-questions/", response_model=Union[QuestionDto, dict])
+@questionrouter.post("/create-questions/", response_model=dict)
 async def create_questions(questions_num: int, question_service: QuestionService = Depends(QuestionService),
-                           session: AsyncSession = Depends(get_session)):
+                           session: AsyncSession = Depends(get_session)) -> Union[dict, QuestionDto]:
     last_question = await question_service.get_last_question(session)
     try:
         await question_service.create_unique_questions(questions_num, session)
@@ -23,5 +23,5 @@ async def create_questions(questions_num: int, question_service: QuestionService
     if last_question is None:
         return JSONResponse(content={})
 
-    return JSONResponse(content=QuestionDto.from_question(last_question).to_dict())
+    return QuestionDto.from_question(last_question)
 
