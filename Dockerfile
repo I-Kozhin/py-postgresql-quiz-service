@@ -1,11 +1,15 @@
+# Use an official Python runtime as the base image
 FROM python:3.11-slim-bullseye
 LABEL authors="I-Kozhin"
 
+# нужен чтобы логи нормально из контейнера вылезали
+# тоже можно поставить, все равно кеш питон кода в контейнере лишь место лишнее занимать будет
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
+RUN apt-get update && apt-get install
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y \
   dos2unix \
   libpq-dev \
   libmariadb-dev-compat \
