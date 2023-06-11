@@ -1,5 +1,5 @@
 pip>=23.1.2
-aiohttp>=3.8.4
+aiohttp==3.8.4
 asyncpg>=0.27.0
 fastapi>=0.65.2
 pydantic>=1.6.2
