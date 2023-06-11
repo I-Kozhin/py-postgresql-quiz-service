@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 RUN apt-get update && apt-get install
 
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
   dos2unix \
   libpq-dev \
   libmariadb-dev-compat \
