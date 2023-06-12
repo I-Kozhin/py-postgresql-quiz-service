@@ -11,7 +11,7 @@ class SomeReconnectableError(Exception):
         super().__init__(message)
 
 
-class QuestionServiceError(Exception):
+class QuestionApiServiceError(Exception):
     def __init__(self, message):
         super().__init__(message)
 

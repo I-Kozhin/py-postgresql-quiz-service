@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 
-from database.database import init_models
-from router.question_router import questionrouter
+from app.database.database_initiation import init_models
+from app.router.question_router import question_router
 from app.errors import logger
 from app.settings import HOST, PORT
 
 
 app = FastAPI()
-app.include_router(questionrouter)
+app.include_router(question_router)
 
 
 @app.on_event("startup")
@@ -16,7 +16,7 @@ async def startup_event():
         await init_models()
     except Exception as e:
         logger.exception(f'Failed to perform {startup_event} func: {e}')
-        raise  # exit
+        raise
 
 
 if __name__ == "__main__":

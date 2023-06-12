@@ -3,9 +3,9 @@ from typing import List, Optional
 import aiohttp
 from sqlalchemy.orm import Session  # type: ignore
 from sqlalchemy.ext.asyncio import AsyncSession
-from dto.question_dto import QuestionDto
-from repositories.question_repository import QuestionRepository
-from app.errors import QuestionServiceError
+from app.dto.question_dto import QuestionDto
+from app.repositories.question_repository import QuestionRepository
+from app.errors import QuestionApiServiceError
 
 
 class QuestionApiService:
@@ -21,7 +21,7 @@ class QuestionApiService:
                         question = QuestionDto.parse_obj(question_data[0])
                         unique_questions_from_api.append(question)
                     else:
-                        raise QuestionServiceError(f"Failed to fetch questions from API: {response.status}")
+                        raise QuestionApiServiceError(f"Failed to fetch questions from API: {response.status}")
 
         return unique_questions_from_api
 
