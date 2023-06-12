@@ -18,7 +18,7 @@ dbtype = os.getenv('DB_TYPE', DB_TYPE)
 
 intervals = [1, 3, 7]
 
-SQLALCHEMY_DATABASE_URL = f"{dbtype}+asyncpg://{user}:{password}@{host}:{port}/{db}"
+SQLALCHEMY_DATABASE_URL = f"{dbtype}://{user}:{password}@{host}:{port}/{db}"
 
 try:
     engine = create_async_engine(SQLALCHEMY_DATABASE_URL, echo=True)
