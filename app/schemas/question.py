@@ -10,6 +10,7 @@ class Question(Base):
     """
 
     __tablename__ = "questions"
+
     id = Column(Integer, primary_key=True, index=True, unique=True, autoincrement=True)
     question_text = Column(String, index=True)
     answer_text = Column(String)

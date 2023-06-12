@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 
 from app.database.database_initiation import init_models
-from app.router.question_router import questionrouter
+from app.router.question_router import question_router
 from app.errors import logger
 from app.settings import HOST, PORT
 
 
 app = FastAPI()
-app.include_router(questionrouter)
+app.include_router(question_router)
 
 
 @app.on_event("startup")

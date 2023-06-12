@@ -1,5 +1,5 @@
 from typing import List, Type
-
+from fastapi import HTTPException
 from sqlalchemy import desc
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
@@ -14,9 +14,15 @@ from app.errors import logger, CommitError
 class QuestionRepository:
     @staticmethod
     async def get_last_question_nullable(session: AsyncSession) -> Type[Question] | None:
-        query = select(Question).order_by(desc(Question.id))
-        result = await session.execute(query)
-        return result.scalars().first()
+        try:
+            query = select(Question).order_by(desc(Question.id))
+            result = await session.execute(query)
+            return result.scalar()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while executing the last question from database: {e}")
+            raise HTTPException(status_code=500,
+                                detail=f'An unexpected error occurred while executing question from database.')
+
 
     @staticmethod
     async def is_question_exist(question_text: str, session: AsyncSession) -> bool:
