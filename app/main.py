@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from app.database.database_initiation import init_models
-from app.router.question_router import questionrouter
+from app.routers.question_router import questionrouter
 from app.errors import logger
 from app.settings import HOST, PORT
 

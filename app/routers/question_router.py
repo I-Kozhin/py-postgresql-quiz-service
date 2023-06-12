@@ -5,7 +5,7 @@ from starlette.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.database_session_manager import get_session
-from app.service.question_service import QuestionService, QuestionServiceError
+from app.services.question_service import QuestionService, QuestionServiceError
 from app.dto.question_dto import QuestionDto
 
 questionrouter = APIRouter()

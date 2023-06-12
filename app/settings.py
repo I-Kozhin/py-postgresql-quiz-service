@@ -8,3 +8,4 @@ DB_USER = os.getenv('DB_USER', 'user')
 DB_PASSWORD = os.getenv('DB_PASSWORD', '123456789')
 DB_NAME = os.getenv('DB_NAME', 'postgresdb')
 DB_TYPE = os.getenv('DB_TYPE', 'postgresql+asyncpg')
+INTERVALS = [1, 3, 7]

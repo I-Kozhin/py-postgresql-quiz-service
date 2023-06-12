@@ -6,10 +6,8 @@ from sqlalchemy.orm import sessionmaker  # type: ignore
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.errors import logger, SomeReconnectableError
 from time import sleep
-from app.settings import DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_TYPE
+from app.settings import DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_TYPE, INTERVALS
 
-
-intervals = [1, 3, 7]
 
 SQLALCHEMY_DATABASE_URL = f"{DB_TYPE}://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
@@ -39,7 +37,7 @@ async def get_table_names_async():
 
 
 async def init_models():
-    for timeout in intervals:
+    for timeout in INTERVALS:
         try:
             table_names = await get_table_names_async()
         except SomeReconnectableError as e:
