@@ -6,7 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Session  # type: ignore
 
-from app.database.question import Question
+from app.schemas.question import Question
 from app.dto.question_dto import QuestionDto
 from app.errors import logger, CommitError
 
