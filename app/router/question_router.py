@@ -4,9 +4,9 @@ from fastapi import APIRouter, HTTPException, Depends
 from starlette.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.database_session_manager import get_session
-from service.question_service import QuestionService, QuestionServiceError
-from dto.question_dto import QuestionDto
+from app.database.database_session_manager import get_session
+from app.service import QuestionService, QuestionServiceError
+from app.dto.question_dto import QuestionDto
 
 questionrouter = APIRouter()
 

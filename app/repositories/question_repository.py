@@ -1,4 +1,3 @@
-import logging
 from typing import List, Type
 
 from sqlalchemy import desc
@@ -7,8 +6,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Session  # type: ignore
 
-from database.question import Question
-from dto.question_dto import QuestionDto
+from app.database.question import Question
+from app.dto.question_dto import QuestionDto
 from app.errors import logger, CommitError
 
 

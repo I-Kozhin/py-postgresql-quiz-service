@@ -3,8 +3,8 @@ from typing import List, Optional
 import aiohttp
 from sqlalchemy.orm import Session  # type: ignore
 from sqlalchemy.ext.asyncio import AsyncSession
-from dto.question_dto import QuestionDto
-from repositories.question_repository import QuestionRepository
+from app.dto.question_dto import QuestionDto
+from app.repositories.question_repository import QuestionRepository
 from app.errors import QuestionServiceError
 
 
