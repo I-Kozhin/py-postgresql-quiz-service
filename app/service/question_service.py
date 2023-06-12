@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from typing import List, Optional
 
 import aiohttp
@@ -5,7 +6,7 @@ from sqlalchemy.orm import Session  # type: ignore
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.dto.question_dto import QuestionDto
 from app.repositories.question_repository import QuestionRepository
-from app.errors import QuestionApiServiceError
+from app.errors import QuestionApiServiceError, logger
 
 
 class QuestionApiService:
@@ -35,8 +36,15 @@ class QuestionService:
         self.question_api_service = QuestionApiService()
 
     async def create_unique_questions(self, question_count: int, session: AsyncSession) -> None:
-        unique_questions = await self.question_api_service.get_unique_questions_from_api(question_count)
-        await self.question_repository.create_questions(unique_questions, session)
+        try:
+            unique_questions = await self.question_api_service.get_unique_questions_from_api(question_count)
+            await self.question_repository.create_questions(unique_questions, session)
+        except QuestionApiServiceError:
+            raise
+        except Exception as e:
+            logger.exception(f'Failed to perform {self.create_unique_questions} func at {QuestionService}: {e}')
+            raise HTTPException(status_code=500,
+                                detail=f'An unexpected error occurred while creating questions.')
 
     async def get_last_question(self, session: AsyncSession) -> Optional['Question']:
         return await self.question_repository.get_last_question_nullable(session)
