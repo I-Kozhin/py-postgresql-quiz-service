@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from app.database.database import Base
-from app.dto import QuestionDto
+from app.dto.question_dto import QuestionDto
 from datetime import datetime
 
 
