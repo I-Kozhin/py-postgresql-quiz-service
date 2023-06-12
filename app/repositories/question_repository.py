@@ -23,13 +23,6 @@ class QuestionRepository:
             raise HTTPException(status_code=500,
                                 detail=f'An unexpected error occurred while executing question from database.')
 
-
-    @staticmethod
-    async def is_question_exist(question_text: str, session: AsyncSession) -> bool:
-        query = select(Question).filter(Question.question_text == question_text).first()
-        result = await session.execute(query)
-        return result is not None
-
     @staticmethod
     async def create_questions(collection_dto: List[QuestionDto], session: AsyncSession) -> None:
         for question in collection_dto:
